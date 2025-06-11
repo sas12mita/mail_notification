@@ -20,7 +20,7 @@ class BankAccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('bank');
     }
 
     /**
@@ -28,8 +28,18 @@ class BankAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'full_name' => 'required|string',
+            'bank_name' => 'required|string',
+            'branch_name' => 'required|string',
+        ]);
+
+        BankAccount::create($request->all());
+
+        return back()->with('success', 'Bank account saved successfully.');
     }
+
 
     /**
      * Display the specified resource.

@@ -20,15 +20,23 @@ class BrokerAccountController extends Controller
      */
     public function create()
     {
-        //
+        return view('broker');
     }
 
     /**
      * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+     */ public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'full_name' => 'required|string',
+            'boid_no' => 'required|string',
+            'source_of_investment' => 'required|string',
+        ]);
+
+        BrokerAccount::create($request->all());
+
+        return back()->with('success', 'Broker account saved successfully.');
     }
 
     /**
