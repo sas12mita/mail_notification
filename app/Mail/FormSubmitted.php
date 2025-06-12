@@ -13,13 +13,13 @@ class FormSubmitted extends Mailable implements ShouldQueue
 
     public $user;
     public $type;
-    public $isAdmin;
+    public $message;
 
-    public function __construct(User $user, string $type, bool $isAdmin = false)
+    public function __construct(User $user, string $type, $message)
     {
         $this->user = $user;
         $this->type = $type;
-        $this->isAdmin = $isAdmin;
+        $this->message=$message
     }
 
     public function build()

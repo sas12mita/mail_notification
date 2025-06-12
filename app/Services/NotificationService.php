@@ -15,11 +15,8 @@ class NotificationService
      * @param string $type The type of form submitted (e.g. "Bank Account", "Broker Account")
      * @return void
      */
-    public static function sendFormSubmissionMail(User $user, string $type): void
+    public static function sendFormSubmissionMail(User $user, string $type, $message): void
     {
-        
-        Mail::to($user->email)->send(new FormSubmitted($user, $type));
-
-        Mail::to('sumitapoudel12@gmail.com')->send(new FormSubmitted($user, $type, true));
+        Mail::to($user->email)->send(new FormSubmitted($user, $type,$message));
     }
 }
