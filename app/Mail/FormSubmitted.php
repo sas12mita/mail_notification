@@ -13,22 +13,23 @@ class FormSubmitted extends Mailable implements ShouldQueue
 
     public $user;
     public $type;
-    public $message;
+    public $mail_message;
 
-    public function __construct(User $user, string $type, $message)
+    public function __construct(User $user, string $type, $mail_message)
     {
         $this->user = $user;
         $this->type = $type;
-        $this->message=$message
+        $this->mail_message= $mail_message;
     }
 
     public function build()
     {
-        $subject = $this->isAdmin
-            ? "New {$this->type} Submission by {$this->user->name}"
-            : "Your {$this->type} Application Received";
-
-        return $this->subject($subject)
-                    ->view('emails.form_submitted');
+    
+        return $this->subject("Form Submission : {$this->type}")
+                    ->view('email')->with([
+                        'user'=>$this->user,
+                        'type'=>$this->type,
+                        'mail_message'=>$this->mail_message,
+                    ]);
     }
 }

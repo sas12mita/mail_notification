@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>User Register</title>
     <style>
@@ -59,29 +60,39 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="form-container">
-    <h2>User Register</h2>
+    <div class="form-container">
+        <h2>User Register</h2>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <form action="{{ route('register.store') }}" method="POST">
+            @csrf
 
-    <form action="{{ route('register.store') }}" method="POST">
-        @csrf
+            <label>Name:</label>
+            <input type="text" name="name" required>
 
-        <label>Name:</label>
-        <input type="text" name="name" required>
+            <label>Email:</label>
+            <input type="email" name="email" required>
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
+            <label>Password:</label>
+            <input type="password" name="password" required>
 
-        <label>Password:</label>
-        <input type="password" name="password" required>
+            <label>Confirm Password:</label>
+            <input type="password" name="password_confirmation" required>
 
-        <label>Confirm Password:</label>
-        <input type="password" name="password_confirmation" required>
-
-        <button type="submit">Register</button>
-    </form>
-</div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
 
 </body>
+
 </html>

@@ -18,16 +18,19 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|confirmed',
         ]);
+        //dd($request->all());
 
         // Save user
-        User::create([
+       $user= User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        return redirect()->route('bank-accounts.create')->with('success', 'User registered successfully!');
+        
+        session(['user_id' => $user->id]);
+    
+        return view('bank')->with('success', 'User registered successfully!');
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BrokerAccount;
+use App\Models\User;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
 class BrokerAccountController extends Controller
@@ -35,6 +37,10 @@ class BrokerAccountController extends Controller
         ]);
 
         BrokerAccount::create($request->all());
+        $user = User::findOrFail($request->id);
+        $type = 'Broker Account';
+        $mail_message = 'You have successfully created a new Broker account';
+        NotificationService::sendFormSubmissionMail($user, $type, $mail_message);
 
         return back()->with('success', 'Broker account saved successfully.');
     }

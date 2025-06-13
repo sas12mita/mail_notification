@@ -73,7 +73,7 @@
 
     <form action="{{ route('bank-accounts.store') }}" method="POST">
         @csrf
-        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+        <input type="hidden" name="user_id" value="{{ session('user_id') }}">
 
         <div>
             <label>Full Name:</label>
